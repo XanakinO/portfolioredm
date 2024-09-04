@@ -1,3 +1,35 @@
+-- Hella alpha fallout dialog and quest system by: Xanakin_
+
+-- Quest Initialization
+RegisterNetEvent('quest:start')
+AddEventHandler('quest:start', function(questId)
+    -- Trigger quest start
+    StartQuest(questId)
+end)
+
+-- Dialog Handling
+RegisterNetEvent('dialog:response')
+AddEventHandler('dialog:response', function(nodeId, responseIndex)
+    local node = GetDialogNode(nodeId)
+    local response = node.responses[responseIndex]
+    if response.questTrigger then
+        TriggerEvent('quest:start', response.questTrigger)
+    end
+    -- Proceed to next dialog node
+    ProceedToNextNode(response.nextNode)
+end)
+
+function GetDialogNode(nodeId)
+    -- Fetch dialog node from database or predefined structure
+end
+
+function ProceedToNextNode(nextNodeId)
+    -- Handle dialog progression
+end
+
+function StartQuest(questId)
+    -- Initialize quest objectives, state, etc.
+end
 local quests = {}
 local dialogTrees = {}
 local npcLocations = {}
